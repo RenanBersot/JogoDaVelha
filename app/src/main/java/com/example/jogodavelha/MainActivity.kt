@@ -189,33 +189,42 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        return null
+            return null
     }
 
-    private fun verificaVencedor(tabuleiro: Array<Array<String>>): String? {
-        // Linhas
-        for (i in 0..2) {
+    fun verificaVencedor(tabuleiro: Array<Array<String>>): String? {
+        // Verifica linhas e colunas
+        for (i in 0 until 3) {
             if (tabuleiro[i][0] == tabuleiro[i][1] && tabuleiro[i][1] == tabuleiro[i][2] && tabuleiro[i][0].isNotEmpty()) {
                 return tabuleiro[i][0]
             }
-        }
-
-        // Colunas
-        for (i in 0..2) {
             if (tabuleiro[0][i] == tabuleiro[1][i] && tabuleiro[1][i] == tabuleiro[2][i] && tabuleiro[0][i].isNotEmpty()) {
                 return tabuleiro[0][i]
             }
         }
-
-        // Diagonais
+        // Verifica diagonais
         if (tabuleiro[0][0] == tabuleiro[1][1] && tabuleiro[1][1] == tabuleiro[2][2] && tabuleiro[0][0].isNotEmpty()) {
             return tabuleiro[0][0]
         }
-
         if (tabuleiro[0][2] == tabuleiro[1][1] && tabuleiro[1][1] == tabuleiro[2][0] && tabuleiro[0][2].isNotEmpty()) {
             return tabuleiro[0][2]
         }
 
+        // Verifica empate
+        var empate = 0
+        for (linha in tabuleiro) {
+            for (valor in linha) {
+                if (valor == "bota" || valor == "fla") {
+                    empate++
+                }
+            }
+        }
+
+        if (empate == 9) {
+            return "Empate"
+        }
+
+        // Nenhum vencedor
         return null
     }
 }
